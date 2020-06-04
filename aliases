@@ -31,7 +31,7 @@ alias gc='git commit -m' #commit all staged files with a comment
 alias gp='git push' #push all local commits to the remote repository
 alias gu='git remote prune origin && git pull --all -v && git branch -a' #get the latest changes from the repository
 alias ua='git reset .' #undo the most recent add, but not committed, file/folders
-alias uc='git reset HEAD' #undo the most recent commit, leaves the file/folders unstaged in your local repository
+alias uc='git reset HEAD^' #undo the most recent commit, leaves the file/folders unstaged in your local repository
 alias gr='git reset --hard' #changes your files to match the commit you reset to.
 alias gstash='git stash' #this command temporarily stores all the modified tracked files
 alias ustash='git stash pop' #this command restore the most recently stashed files
@@ -56,13 +56,3 @@ alias gconf='git config --global -e'
 alias reload='source ~/.bashrc'
 alias removeaccount='git config --system --unset credential.helper'
 alias setaccount='git config --global credential.helper wincred'
-
-#Projects
-alias routify='cd /d/projects/smooth_solutions'
-alias routifyweb='cd /d/projects/smooth_solutions/smoothsolutions.routify.web'
-alias routifyapi='cd /d/projects/smooth_solutions/smoothsolutions.routify.api'
-alias angular='cd /d/projects/angular_complete_guide'
-alias fuck='echo PORRA SEU FILHO DA PUTA'
-
-#Alias
-alias myalias='ssh -i "~/.ssh/mubbiec2keypair.pem" ubuntu@ec2-100-24-154-62.compute-1.amazonaws.com'

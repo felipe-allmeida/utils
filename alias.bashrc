@@ -1,3 +1,5 @@
+
+
 #methods
 gitPush(){
 git add .
@@ -20,10 +22,23 @@ git branch -D "$1"
 git push origin --delete "$1"
 }
 
+gitRenameBranch() {
+local oldBranch=$(git rev-parse --abbrev-ref HEAD)
+git branch -m $1
+git push origin -u $1
+git push origin --delete $oldBranch
+}
+
+runNgrok() {
+ngrok http https://localhost:$1 -host-header="localhost:$1"
+}
+
 alias c=gitPush
 alias merge=gitMerge
 alias create=gitCreateBranch
 alias delete=gitDeleteBranch
+alias expose=runNgrok
+alias rename=gitRenameBranch
 #git commands shortcuts
 alias gs='git status' #view the changes you've made
 alias ga='git add .' #stage all file/folders in the git local repository
@@ -39,6 +54,7 @@ alias lstash='git stash list' #this command list all stashed changesets
 alias dstash='git stash drop' #this command discards the most recently stashed changeset
 alias gck.='git checkout .' #delete all local changes in the repository that have not been added to the staging area
 alias gclean='git clean -f' #delete all untracked files/folders
+alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 
 #Dealing with branches
 alias master='git checkout master' #switch to master
@@ -49,6 +65,11 @@ alias g-='git checkout -' #go back to the last branch you visited
 alias gm='git merge' #parameter: branch_name merge current branch with target branch
 alias cbranch='git checkout -b' #parameter: the name of the branch
 
+#Docker utils
+alias dc-stop-all='docker stop $(docker ps -a -q)'
+alias dc-remove-all='docker rm $(docker ps -a -q)'
+alias dv-remove-all='docker volume rm $(docker volume ls -q)'
+
 #utils
 alias galias='vi ~/.bashrc'
 alias ign='vi .gitignore'
@@ -57,3 +78,5 @@ alias gconf='git config --global -e'
 alias reload='source ~/.bashrc'
 alias removeaccount='git config --system --unset credential.helper'
 alias setaccount='git config --global credential.helper wincred'
+
+complete -C C:\ProgramData\chocolatey\lib\terraform\tools\terraform.exe terraform.exe

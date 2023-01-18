@@ -1,5 +1,3 @@
-
-
 #methods
 gitPush(){
 git add .
@@ -9,7 +7,7 @@ git push
 
 gitMerge(){
 git checkout "$1"
-git merge "$s2"
+git merge "$2"
 }
 
 gitCreateBranch(){
@@ -20,6 +18,10 @@ git push --set-upstream origin $1
 gitDeleteBranch(){
 git branch -D "$1"
 git push origin --delete "$1"
+}
+
+gitDeleteLocalNotOnRemote(){
+git fetch -p && for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do git branch -D $branch; done
 }
 
 gitRenameBranch() {
@@ -37,6 +39,7 @@ alias c=gitPush
 alias merge=gitMerge
 alias create=gitCreateBranch
 alias delete=gitDeleteBranch
+alias dl=gitDeleteLocalNotOnRemote
 alias expose=runNgrok
 alias rename=gitRenameBranch
 #git commands shortcuts
@@ -68,6 +71,7 @@ alias cbranch='git checkout -b' #parameter: the name of the branch
 #Docker utils
 alias dc-stop-all='docker stop $(docker ps -a -q)'
 alias dc-remove-all='docker rm $(docker ps -a -q)'
+alias di-remove-all='docker rmi -f $(docker images -aq)'
 alias dv-remove-all='docker volume rm $(docker volume ls -q)'
 
 #utils
@@ -78,5 +82,4 @@ alias gconf='git config --global -e'
 alias reload='source ~/.bashrc'
 alias removeaccount='git config --system --unset credential.helper'
 alias setaccount='git config --global credential.helper wincred'
-
-complete -C C:\ProgramData\chocolatey\lib\terraform\tools\terraform.exe terraform.exe
+alias stopiis='net stop http'
